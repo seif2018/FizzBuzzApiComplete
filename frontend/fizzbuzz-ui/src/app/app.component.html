@@ -1,0 +1,17 @@
+<main class="container">
+  <h1>FizzBuzz API</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid">
+      <div><label for="int1">int1</label><input id="int1" type="number" formControlName="int1" /></div>
+      <div><label for="int2">int2</label><input id="int2" type="number" formControlName="int2" /></div>
+      <div><label for="limit">limit</label><input id="limit" type="number" formControlName="limit" /></div>
+      <div><label for="str1">str1</label><input id="str1" type="text" formControlName="str1" /></div>
+      <div><label for="str2">str2</label><input id="str2" type="text" formControlName="str2" /></div>
+    </div>
+    <button type="submit" [disabled]="loading">{{ loading ? 'Chargement...' : 'Générer' }}</button>
+  </form>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <section class="result" *ngIf="result.length > 0">
+    <span class="badge" *ngFor="let item of result">{{ item }}</span>
+  </section>
+</main>

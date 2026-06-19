@@ -1,0 +1,27 @@
+services:
+  fizzbuzz-api:
+    build:
+      context: ./backend/FizzBuzz.Api
+      dockerfile: Dockerfile
+    container_name: fizzbuzz-api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Cors__AllowedOrigins__0=http://localhost:4200
+      - Cors__AllowedOrigins__1=http://localhost:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  fizzbuzz-ui:
+    build:
+      context: ./frontend/fizzbuzz-ui
+      dockerfile: Dockerfile
+    container_name: fizzbuzz-ui
+    ports:
+      - "8080:80"
+    depends_on:
+      - fizzbuzz-api
